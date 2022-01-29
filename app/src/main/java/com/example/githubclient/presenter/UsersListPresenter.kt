@@ -1,4 +1,7 @@
-package com.example.githubclient
+package com.example.githubclient.presenter
+
+import com.example.githubclient.repository.GitHubUser
+import com.example.githubclient.ui.users.UserItemView
 
 class UsersListPresenter : IUserListPresenter {
 

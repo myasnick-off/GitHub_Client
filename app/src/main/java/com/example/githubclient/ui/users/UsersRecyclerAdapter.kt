@@ -1,9 +1,10 @@
-package com.example.githubclient
+package com.example.githubclient.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclient.databinding.ItemUsersListBinding
+import com.example.githubclient.presenter.IUserListPresenter
 
 class UsersRecyclerAdapter(val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRecyclerAdapter.UsersViewHolder>() {
@@ -11,7 +12,7 @@ class UsersRecyclerAdapter(val presenter: IUserListPresenter) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): UsersRecyclerAdapter.UsersViewHolder {
+    ): UsersViewHolder {
         val binding =
             ItemUsersListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = UsersViewHolder(binding).apply {

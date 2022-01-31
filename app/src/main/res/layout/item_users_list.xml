@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/padding_4"
+    app:cardCornerRadius="@dimen/radius_8"
+    android:padding="@dimen/padding_4">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/login_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_18"
+        android:layout_marginStart="@dimen/margin_8"
+        android:padding="@dimen/padding_4"
+        tools:text="@string/login"/>
+
+</androidx.cardview.widget.CardView>

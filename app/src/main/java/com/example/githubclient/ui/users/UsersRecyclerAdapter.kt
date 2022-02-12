@@ -2,14 +2,18 @@ package com.example.githubclient.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclient.databinding.ItemUsersListBinding
 import com.example.githubclient.model.GitHubUser
+import com.example.githubclient.ui.ImageLoader
 
-class UsersRecyclerAdapter(private val itemClickListener: (GitHubUser) -> Unit) :
-    ListAdapter<GitHubUser, UsersRecyclerAdapter.UsersViewHolder>(GithubUserItemCallBack) {
+class UsersRecyclerAdapter(
+    private val imageLoader: ImageLoader<ImageView>,
+    private val itemClickListener: (GitHubUser) -> Unit
+) : ListAdapter<GitHubUser, UsersRecyclerAdapter.UsersViewHolder>(GithubUserItemCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val binding =
@@ -24,9 +28,9 @@ class UsersRecyclerAdapter(private val itemClickListener: (GitHubUser) -> Unit) 
     inner class UsersViewHolder(private val binding: ItemUsersListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun showUser(gitHubUser: GitHubUser) {
             binding.loginTextView.text = gitHubUser.login
+            gitHubUser.avatarUrl?.let { imageLoader.loadInto(it, binding.avatarImageView) }
             binding.root.setOnClickListener { itemClickListener(gitHubUser) }
         }
-
     }
 }
 

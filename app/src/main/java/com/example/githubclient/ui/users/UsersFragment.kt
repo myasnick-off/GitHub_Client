@@ -12,6 +12,7 @@ import com.example.githubclient.network.ApiHolder.githubApiService
 import com.example.githubclient.repository.UsersRepositoryImpl
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
+import com.example.githubclient.ui.GlideImageLoader
 import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -40,7 +41,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
-        adapter = UsersRecyclerAdapter { presenter.onUserClicked() }
+        adapter = UsersRecyclerAdapter(GlideImageLoader()) { presenter.onUserClicked() }
         binding.usersRecyclerView.adapter = adapter
     }
 

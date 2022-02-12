@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.githubclient.App
 import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.presenter.UsersPresenter
+import com.example.githubclient.repository.GitHubUser
 import com.example.githubclient.repository.UsersRepository
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
@@ -37,12 +38,12 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
-        adapter = UsersRecyclerAdapter(presenter.usersListPresenter)
+        adapter = UsersRecyclerAdapter { presenter.onUserClicked() }
         binding.usersRecyclerView.adapter = adapter
     }
 
-    override fun updateList() {
-        adapter.notifyDataSetChanged()
+    override fun updateList(users: List<GitHubUser>) {
+        adapter.submitList(users)
     }
 
     override fun backPressed() = presenter.backPressed()

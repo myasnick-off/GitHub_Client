@@ -1,5 +1,5 @@
 package com.example.githubclient.ui.users
 
-interface UserItemView : IItemView {
+interface UserItemView {
     fun setLogin(text: String)
 }

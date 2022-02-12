@@ -1,11 +1,11 @@
-package com.example.githubclient.presenter
+package com.example.githubclient.ui.users
 
-import android.util.Log
-import com.example.githubclient.repository.GitHubUser
 import com.example.githubclient.repository.UsersRepository
+import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.IScreens
-import com.example.githubclient.ui.users.UsersView
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 class UsersPresenter(
@@ -23,19 +23,16 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        var users = mutableListOf<GitHubUser>()
-        usersRepository.getUsers().subscribe(
-            { user ->
-                Log.d("myLog", "${user.login} received")
-                users.add(user)
-            },
-            { error ->
-                Log.d("myLog", "$error")
-            },
-            {
-                Log.d("myLog", "Receiving data complete")
-                viewState.updateList(users)
-            }
+        usersRepository.getUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    viewState.updateList(it)
+                },
+                {
+                    viewState.showError(it.message)
+                }
         )
     }
 

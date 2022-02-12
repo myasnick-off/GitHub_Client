@@ -1,7 +1,6 @@
-package com.example.githubclient.presenter
+package com.example.githubclient.ui.main
 
 import com.example.githubclient.ui.IScreens
-import com.example.githubclient.ui.main.MainView
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 

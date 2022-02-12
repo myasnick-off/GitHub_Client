@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclient.databinding.ItemUsersListBinding
-import com.example.githubclient.presenter.IUserListPresenter
-import com.example.githubclient.repository.GitHubUser
+import com.example.githubclient.model.GitHubUser
 
 class UsersRecyclerAdapter(private val itemClickListener: (GitHubUser) -> Unit) :
     ListAdapter<GitHubUser, UsersRecyclerAdapter.UsersViewHolder>(GithubUserItemCallBack) {

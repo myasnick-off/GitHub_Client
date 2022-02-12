@@ -1,4 +1,4 @@
-package com.example.githubclient.presenter
+package com.example.githubclient.ui.details
 
 import com.example.githubclient.ui.details.DetailsView
 import com.github.terrakok.cicerone.Router

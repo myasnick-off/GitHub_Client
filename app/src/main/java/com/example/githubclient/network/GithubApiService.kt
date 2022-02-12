@@ -1,8 +1,11 @@
-package com.example.githubclient.repository
+package com.example.githubclient.network
 
 import com.example.githubclient.model.GitHubUser
 import io.reactivex.rxjava3.core.Single
+import retrofit2.http.GET
 
-interface UsersRepository {
+interface GithubApiService {
+
+    @GET("/users")
     fun getUsers(): Single<List<GitHubUser>>
 }

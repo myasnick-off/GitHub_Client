@@ -1,12 +1,18 @@
 package com.example.githubclient.ui.users
 
-import com.example.githubclient.repository.GitHubUser
+import com.example.githubclient.model.GitHubUser
 import moxy.MvpView
-import moxy.viewstate.strategy.AddToEndSingleStrategy
-import moxy.viewstate.strategy.StateStrategyType
+import moxy.viewstate.strategy.alias.AddToEndSingle
+import moxy.viewstate.strategy.alias.Skip
 
-@StateStrategyType(AddToEndSingleStrategy::class)
 interface UsersView : MvpView {
+
+    @AddToEndSingle
     fun init()
+
+    @AddToEndSingle
     fun updateList(users: List<GitHubUser>)
+
+    @Skip
+    fun showError(message: String?)
 }

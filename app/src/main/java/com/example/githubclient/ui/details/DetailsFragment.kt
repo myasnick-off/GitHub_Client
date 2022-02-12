@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.githubclient.App
 import com.example.githubclient.databinding.FragmentDetailsBinding
-import com.example.githubclient.presenter.DetailsPresenter
-import com.example.githubclient.repository.GitHubUser
+import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.ui.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter

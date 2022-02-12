@@ -1,6 +1,8 @@
 package com.example.githubclient.presenter
 
 import android.os.Bundle
+import android.util.Log
+import com.example.githubclient.repository.GitHubUser
 import com.example.githubclient.ui.users.UsersView
 import com.example.githubclient.repository.UsersRepository
 import com.example.githubclient.ui.IScreens
@@ -8,7 +10,11 @@ import com.example.githubclient.ui.details.DetailsFragment.Companion.KEY_USER
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class UsersPresenter(val usersRepository: UsersRepository, val router: Router, val screens: IScreens) :
+class UsersPresenter(
+    val usersRepository: UsersRepository,
+    val router: Router,
+    val screens: IScreens
+) :
     MvpPresenter<UsersView>() {
 
     val usersListPresenter = UsersListPresenter()
@@ -27,9 +33,19 @@ class UsersPresenter(val usersRepository: UsersRepository, val router: Router, v
     }
 
     private fun loadData() {
-        val users = usersRepository.getUsers()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        usersRepository.getUsers().subscribe(
+            { user ->
+                Log.d("myLog", "${user.login} received")
+                usersListPresenter.users.add(user)
+            },
+            { error ->
+                Log.d("myLog", "$error")
+            },
+            {
+                Log.d("myLog", "Receiving data complete")
+                viewState.updateList()
+            }
+        )
     }
 
     fun backPressed(): Boolean {

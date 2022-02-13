@@ -1,6 +1,5 @@
 package com.example.githubclient.ui.details
 
-import androidx.core.graphics.scaleMatrix
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
@@ -22,15 +21,21 @@ class DetailsPresenter(
         super.onFirstViewAttach()
         viewState.initUserData(user)
         viewState.initRepoList()
+        loadData()
+    }
 
+    private fun loadData() {
+        viewState.showProgress()
         repository.getRepos(user.reposUrl)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    viewState.hideProgress()
                     viewState.updateRepoList(it)
                 },
                 {
+                    viewState.hideProgress()
                     viewState.showError(it.message)
                 }
             )

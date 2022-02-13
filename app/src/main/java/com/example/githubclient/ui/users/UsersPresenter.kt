@@ -22,14 +22,17 @@ class UsersPresenter(
     }
 
     private fun loadData() {
+        viewState.showProgress()
         usersRepository.getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    viewState.hideProgress()
                     viewState.updateList(it)
                 },
                 {
+                    viewState.hideProgress()
                     viewState.showError(it.message)
                 }
         )

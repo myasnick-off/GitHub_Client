@@ -67,6 +67,14 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener 
         adapter.submitList(repos)
     }
 
+    override fun showProgress() {
+        binding.detailsProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        binding.detailsProgressBar.visibility = View.GONE
+    }
+
     override fun showError(message: String?) {
         Snackbar
             .make(binding.root, "${getString(R.string.error)} ${message.orEmpty()}", Snackbar.LENGTH_SHORT)

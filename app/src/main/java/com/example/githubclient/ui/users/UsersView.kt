@@ -13,6 +13,12 @@ interface UsersView : MvpView {
     @AddToEndSingle
     fun updateList(users: List<GitHubUser>)
 
+    @AddToEndSingle
+    fun showProgress()
+
+    @AddToEndSingle
+    fun hideProgress()
+
     @Skip
     fun showError(message: String?)
 }

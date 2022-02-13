@@ -49,6 +49,14 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter.submitList(users)
     }
 
+    override fun showProgress() {
+        binding.usersProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        binding.usersProgressBar.visibility = View.GONE
+    }
+
     override fun showError(message: String?) {
         Snackbar
             .make(binding.root, "${getString(R.string.error)} ${message.orEmpty()}", Snackbar.LENGTH_SHORT)

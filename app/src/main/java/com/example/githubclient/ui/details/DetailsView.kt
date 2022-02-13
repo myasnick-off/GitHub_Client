@@ -19,6 +19,12 @@ interface DetailsView : MvpView {
     @AddToEndSingle
     fun updateRepoList(repos: List<GitHubRepo>)
 
+    @AddToEndSingle
+    fun showProgress()
+
+    @AddToEndSingle
+    fun hideProgress()
+
     @Skip
     fun showError(message: String?)
 }

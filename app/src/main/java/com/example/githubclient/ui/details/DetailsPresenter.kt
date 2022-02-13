@@ -4,6 +4,7 @@ import androidx.core.graphics.scaleMatrix
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
+import com.example.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,7 +13,8 @@ import moxy.MvpPresenter
 class DetailsPresenter(
     private val user: GitHubUser,
     private val repository: ReposRepository,
-    val router: Router
+    val router: Router,
+    val screens: IScreens
 ) :
     MvpPresenter<DetailsView>() {
 
@@ -40,6 +42,6 @@ class DetailsPresenter(
     }
 
     fun onItemClicked(repo: GitHubRepo) {
-//        TODO("Not yet implemented")
+        router.navigateTo(screens.repoScreen(repo))
     }
 }

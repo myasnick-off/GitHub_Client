@@ -12,6 +12,7 @@ import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.network.ApiHolder.githubApiService
 import com.example.githubclient.repository.repos.ReposRepositoryImpl
+import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +25,12 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener 
         requireArguments().getParcelable<GitHubUser>(KEY_USER)
     }
     private val presenter by moxyPresenter {
-        DetailsPresenter(user!!, ReposRepositoryImpl(githubApiService), App.appInstance.router)
+        DetailsPresenter(
+            user!!,
+            ReposRepositoryImpl(githubApiService),
+            App.appInstance.router,
+            AndroidScreens()
+        )
     }
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!

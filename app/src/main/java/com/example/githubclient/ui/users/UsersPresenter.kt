@@ -1,7 +1,7 @@
 package com.example.githubclient.ui.users
 
-import com.example.githubclient.repository.UsersRepository
-import com.example.githubclient.ui.AndroidScreens
+import com.example.githubclient.model.GitHubUser
+import com.example.githubclient.repository.users.UsersRepository
 import com.example.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,7 +14,6 @@ class UsersPresenter(
     val screens: IScreens
 ) :
     MvpPresenter<UsersView>() {
-
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -36,16 +35,9 @@ class UsersPresenter(
         )
     }
 
-    fun onUserClicked() {
-        //todo
+    fun onUserClicked(user: GitHubUser) {
+        router.navigateTo(screens.detailsScreen(user))
     }
-
-//    fun onUserClicked() { itemView ->
-//        val bundle = Bundle().apply {
-//            this.putParcelable(KEY_USER, usersListPresenter.users[itemView.pos])
-//        }
-//        router.navigateTo(screens.details(bundle))
-//    }
 
     fun backPressed(): Boolean {
         router.exit()

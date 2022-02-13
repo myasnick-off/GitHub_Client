@@ -1,11 +1,12 @@
 package com.example.githubclient.ui
 
-import android.os.Bundle
+import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.ui.details.DetailsFragment
 import com.example.githubclient.ui.users.UsersFragment
+import com.github.terrakok.cicerone.Screen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 class AndroidScreens : IScreens {
-    override fun users() = FragmentScreen { UsersFragment.newInstance() }
-    override fun details(bundle: Bundle) = FragmentScreen { DetailsFragment.newInstance(bundle) }
+    override fun usersScreen() = FragmentScreen { UsersFragment.newInstance() }
+    override fun detailsScreen(user: GitHubUser): Screen = FragmentScreen { DetailsFragment.newInstance(user) }
 }

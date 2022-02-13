@@ -1,4 +1,4 @@
-package com.example.githubclient.repository
+package com.example.githubclient.repository.users
 
 import com.example.githubclient.model.GitHubUser
 import io.reactivex.rxjava3.core.Single

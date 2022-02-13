@@ -9,7 +9,7 @@ import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.network.ApiHolder.githubApiService
-import com.example.githubclient.repository.UsersRepositoryImpl
+import com.example.githubclient.repository.users.UsersRepositoryImpl
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
@@ -41,7 +41,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
-        adapter = UsersRecyclerAdapter(GlideImageLoader()) { presenter.onUserClicked() }
+        adapter = UsersRecyclerAdapter(GlideImageLoader()) { user -> presenter.onUserClicked(user) }
         binding.usersRecyclerView.adapter = adapter
     }
 

@@ -10,6 +10,7 @@ import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.network.ApiHolder
 import com.example.githubclient.network.NetworkStatus
+import com.example.githubclient.repository.users.RoomUsersCache
 import com.example.githubclient.repository.users.UsersRepositoryImpl
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
@@ -24,8 +25,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         UsersPresenter(
             UsersRepositoryImpl(
                 ApiHolder.githubApiService,
-                App.appInstance.database.userDao,
-                NetworkStatus(requireContext())
+                NetworkStatus(requireContext()),
+                RoomUsersCache(App.appInstance.database.userDao,)
             ),
             App.appInstance.router,
             AndroidScreens()

@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
 import androidx.core.content.getSystemService
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
@@ -35,7 +34,5 @@ class NetworkStatus(context: Context) {
         })
     }
 
-    fun isOnline() = networkBehaviorSubject.value ?: false
-
-    fun isOnlineSingle(): Single<Boolean> = networkBehaviorSubject.first(true)
+    fun isOnlineSingle(): Single<Boolean> = networkBehaviorSubject.first(false)
 }

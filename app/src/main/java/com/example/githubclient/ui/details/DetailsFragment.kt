@@ -13,6 +13,7 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.network.ApiHolder
 import com.example.githubclient.network.NetworkStatus
 import com.example.githubclient.repository.repos.ReposRepositoryImpl
+import com.example.githubclient.repository.repos.RoomReposCache
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
@@ -30,8 +31,8 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener 
             user,
             ReposRepositoryImpl(
                 ApiHolder.githubApiService,
-                App.appInstance.database.repoDao,
-                NetworkStatus(requireContext())
+                NetworkStatus(requireContext()),
+                RoomReposCache(App.appInstance.database.repoDao)
             ),
             App.appInstance.router,
             AndroidScreens()

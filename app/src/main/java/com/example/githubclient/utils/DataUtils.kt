@@ -5,7 +5,6 @@ import com.example.githubclient.db.entity.GitHubUserEntity
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.model.RepoOwner
-import kotlin.math.log
 
 fun userEntityToModelConverter(userEntity: GitHubUserEntity): GitHubUser {
     return GitHubUser(

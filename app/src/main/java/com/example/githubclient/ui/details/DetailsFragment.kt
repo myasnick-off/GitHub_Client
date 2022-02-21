@@ -22,11 +22,11 @@ import moxy.ktx.moxyPresenter
 class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener {
 
     private val user by lazy {
-        requireArguments().getParcelable<GitHubUser>(KEY_USER)
+        requireArguments().getParcelable<GitHubUser>(KEY_USER)!!
     }
     private val presenter by moxyPresenter {
         DetailsPresenter(
-            user!!,
+            user,
             ReposRepositoryImpl(githubApiService),
             App.appInstance.router,
             AndroidScreens()

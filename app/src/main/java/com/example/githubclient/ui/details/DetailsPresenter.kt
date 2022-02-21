@@ -25,8 +25,8 @@ class DetailsPresenter(
     }
 
     private fun loadData() {
-        viewState.showProgress()
         repository.getRepos(user.reposUrl)
+            .doOnSubscribe { viewState.showProgress() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

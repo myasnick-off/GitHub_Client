@@ -1,14 +1,14 @@
-package com.example.githubclient.presenter
+package com.example.githubclient.ui.repo
 
-import com.example.githubclient.ui.details.DetailsView
+import com.example.githubclient.model.GitHubRepo
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class DetailsPresenter(val router: Router) : MvpPresenter<DetailsView>() {
+class RepoPresenter(private val repo: GitHubRepo, val router: Router) : MvpPresenter<RepoView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.setUserData()
+        viewState.init(repo)
     }
 
     fun backPressed(): Boolean {

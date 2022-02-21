@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">GitHub Client</string>
     <string name="login">login</string>
+    <string name="error">Loading error:</string>
+    <string name="repo_name">Repository name</string>
+    <string name="update_at">Update at:</string>
+    <string name="language">Language</string>
+    <string name="stars">stars</string>
+    <string name="watchers">watching</string>
+    <string name="forks">forks</string>
+    <string name="about">About:</string>
 </resources>

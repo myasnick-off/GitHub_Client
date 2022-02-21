@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.ActivityMainBinding
-import com.example.githubclient.presenter.MainPresenter
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
 import com.github.terrakok.cicerone.androidx.AppNavigator

@@ -10,7 +10,8 @@ import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentDetailsBinding
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
-import com.example.githubclient.network.ApiHolder.githubApiService
+import com.example.githubclient.network.ApiHolder
+import com.example.githubclient.network.NetworkStatus
 import com.example.githubclient.repository.repos.ReposRepositoryImpl
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
@@ -27,7 +28,11 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener 
     private val presenter by moxyPresenter {
         DetailsPresenter(
             user,
-            ReposRepositoryImpl(githubApiService),
+            ReposRepositoryImpl(
+                ApiHolder.githubApiService,
+                App.appInstance.database.repoDao,
+                NetworkStatus(requireContext())
+            ),
             App.appInstance.router,
             AndroidScreens()
         )

@@ -13,6 +13,9 @@ interface GitHubRepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(repo: GitHubRepoEntity)
 
-    @Query("SELECT * FROM GitHubRepoEntity")
-    fun getAll(): Single<List<GitHubRepoEntity>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(repos: List<GitHubRepoEntity>)
+
+    @Query("SELECT * FROM GitHubRepoEntity WHERE userId = :userId")
+    fun getAll(userId: Long): Single<List<GitHubRepoEntity>>
 }

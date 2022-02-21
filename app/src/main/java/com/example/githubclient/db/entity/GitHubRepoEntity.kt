@@ -20,7 +20,7 @@ data class GitHubRepoEntity(
     val name: String,
     val updatedAt: String,
     val description: String?,
-    val language: String,
+    val language: String?,
     val visibility: String,
     val stargazersCount: Int,
     val watchersCount: Int,

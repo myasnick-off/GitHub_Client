@@ -10,8 +10,10 @@ import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentDetailsBinding
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
-import com.example.githubclient.network.ApiHolder.githubApiService
+import com.example.githubclient.network.ApiHolder
+import com.example.githubclient.network.NetworkStatus
 import com.example.githubclient.repository.repos.ReposRepositoryImpl
+import com.example.githubclient.repository.repos.RoomReposCache
 import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
@@ -22,12 +24,16 @@ import moxy.ktx.moxyPresenter
 class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener {
 
     private val user by lazy {
-        requireArguments().getParcelable<GitHubUser>(KEY_USER)
+        requireArguments().getParcelable<GitHubUser>(KEY_USER)!!
     }
     private val presenter by moxyPresenter {
         DetailsPresenter(
-            user!!,
-            ReposRepositoryImpl(githubApiService),
+            user,
+            ReposRepositoryImpl(
+                ApiHolder.githubApiService,
+                NetworkStatus(requireContext()),
+                RoomReposCache(App.appInstance.database.repoDao)
+            ),
             App.appInstance.router,
             AndroidScreens()
         )

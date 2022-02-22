@@ -39,7 +39,7 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
     @SuppressLint("SetTextI18n")
     override fun init(repo: GitHubRepo) = with(binding) {
         nameTextView.text = repo.name
-        langTextView.text = repo.language
+        langTextView.text = repo.language.orEmpty()
         updateTextView.text = repo.updatedAt
         starsTextView.text = "${repo.stargazersCount} ${getString(R.string.stars)}"
         watchersTextView.text = "${repo.watchersCount} ${getString(R.string.watchers)}"

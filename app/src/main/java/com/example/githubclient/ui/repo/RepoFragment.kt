@@ -21,7 +21,7 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        RepoPresenter(repo!!, App.appInstance.router)
+        RepoPresenter(repo!!)
     }
 
     private var _binding: FragmentRepoBinding? = null

@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.details
 
+import com.example.githubclient.App
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
@@ -8,17 +9,20 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class DetailsPresenter(
-    private val user: GitHubUser,
-    private val repository: ReposRepository,
-    val router: Router,
-    val screens: IScreens
-) :
-    MvpPresenter<DetailsView>() {
+class DetailsPresenter(private val user: GitHubUser) : MvpPresenter<DetailsView>() {
+
+    @Inject
+    lateinit var repository: ReposRepository
+    @Inject
+    lateinit var router: Router
+    @Inject
+    lateinit var screens: IScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        App.appInstance.appComponent.inject(this)
         viewState.initUserData(user)
         viewState.initRepoList()
         loadData()

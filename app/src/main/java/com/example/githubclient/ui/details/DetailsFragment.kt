@@ -22,7 +22,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener 
         requireArguments().getParcelable<GitHubUser>(KEY_USER)!!
     }
     private val presenter by moxyPresenter {
-        DetailsPresenter(user)
+        App.appInstance.appComponent.provideDetailsPresenterFactory().presenter(user)
     }
 
     private var _binding: FragmentDetailsBinding? = null

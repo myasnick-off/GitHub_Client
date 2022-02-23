@@ -3,13 +3,18 @@ package com.example.githubclient.ui.repo
 import com.example.githubclient.App
 import com.example.githubclient.model.GitHubRepo
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class RepoPresenter(private val repo: GitHubRepo) : MvpPresenter<RepoView>() {
+class RepoPresenter @AssistedInject constructor(
+    @Assisted private val repo: GitHubRepo,
+    private val router: Router
+    ) : MvpPresenter<RepoView>() {
 
-    @Inject
-    lateinit var router: Router
+
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -21,4 +26,9 @@ class RepoPresenter(private val repo: GitHubRepo) : MvpPresenter<RepoView>() {
         router.exit()
         return true
     }
+}
+
+@AssistedFactory
+interface RepoPresenterFactory {
+    fun presenter(repo: GitHubRepo): RepoPresenter
 }

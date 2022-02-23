@@ -17,11 +17,11 @@ import moxy.ktx.moxyPresenter
 class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
 
     private val repo by lazy {
-        requireArguments().getParcelable<GitHubRepo>(KEY_REPO)
+        requireArguments().getParcelable<GitHubRepo>(KEY_REPO)!!
     }
 
     private val presenter by moxyPresenter {
-        RepoPresenter(repo!!)
+        App.appInstance.appComponent.provideRepoPresenterFactory().presenter(repo)
     }
 
     private var _binding: FragmentRepoBinding? = null

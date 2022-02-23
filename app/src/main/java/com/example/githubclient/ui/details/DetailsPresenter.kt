@@ -6,6 +6,7 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
 import com.example.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
+import dagger.Provides
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -14,14 +15,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class DetailsPresenter (private val user: GitHubUser) : MvpPresenter<DetailsView>() {
-
-    @Inject
-    lateinit var repository: ReposRepository
-    @Inject
-    lateinit var router: Router
-    @Inject
-    lateinit var screens: IScreens
+class DetailsPresenter @AssistedInject constructor(
+    @Assisted private val user: GitHubUser,
+    private val repository: ReposRepository,
+    private val router: Router,
+    private val screens: IScreens
+) : MvpPresenter<DetailsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -58,7 +57,7 @@ class DetailsPresenter (private val user: GitHubUser) : MvpPresenter<DetailsView
     }
 }
 
-//@AssistedFactory
-//interface DetailsPresenterFactory {
-//    fun presenter(user: GitHubUser): DetailsPresenter
-//}
+@AssistedFactory
+interface DetailsPresenterFactory {
+    fun presenter(user: GitHubUser): DetailsPresenter
+}

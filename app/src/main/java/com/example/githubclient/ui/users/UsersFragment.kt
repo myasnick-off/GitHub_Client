@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.model.GitHubUser
@@ -15,7 +16,7 @@ import moxy.ktx.moxyPresenter
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
-    private val presenter by moxyPresenter { UsersPresenter() }
+    private val presenter by moxyPresenter { App.appInstance.appComponent.provideUsersPresenter() }
 
     private lateinit var adapter: UsersRecyclerAdapter
     private var _binding: FragmentUsersBinding? = null

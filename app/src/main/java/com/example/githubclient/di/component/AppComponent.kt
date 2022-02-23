@@ -7,6 +7,7 @@ import com.example.githubclient.ui.main.MainPresenter
 import com.example.githubclient.ui.repo.RepoPresenter
 import com.example.githubclient.ui.users.UsersPresenter
 import dagger.Component
+import javax.inject.Singleton
 
 
 @Component(
@@ -18,7 +19,13 @@ import dagger.Component
         RepositoryModule::class
     ]
 )
+
+@Singleton
 interface AppComponent {
+
+    fun provideMainPresenter() : MainPresenter
+    fun provideUsersPresenter(): UsersPresenter
+//    fun provideDetailsPresenterFactory() : DetailsPresenterFactory
 
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)

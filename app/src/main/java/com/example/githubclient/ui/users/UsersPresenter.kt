@@ -10,18 +10,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class UsersPresenter : MvpPresenter<UsersView>() {
+class UsersPresenter @Inject constructor(
+    private val usersRepository: UsersRepository,
+    private val router: Router,
+    private val screens: IScreens
+) : MvpPresenter<UsersView>() {
 
-    @Inject
-    lateinit var usersRepository: UsersRepository
-    @Inject
-    lateinit var router: Router
-    @Inject
-    lateinit var screens: IScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        App.appInstance.appComponent.inject(this)
         viewState.init()
         loadData()
     }
@@ -40,7 +37,7 @@ class UsersPresenter : MvpPresenter<UsersView>() {
                     viewState.hideProgress()
                     viewState.showError(it.message)
                 }
-        )
+            )
     }
 
     fun onUserClicked(user: GitHubUser) {

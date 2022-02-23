@@ -10,11 +10,13 @@ import com.example.githubclient.repository.users.UsersRepository
 import com.example.githubclient.repository.users.UsersRepositoryImpl
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
 
     @Provides
+    @Singleton
     fun provideUsersRepo(
         apiService: GithubApiService,
         networkStatus: NetworkStatus,
@@ -24,6 +26,7 @@ class RepositoryModule {
     }
 
     @Provides
+    @Singleton
     fun provideReposRepo(
         apiService: GithubApiService,
         networkStatus: NetworkStatus,

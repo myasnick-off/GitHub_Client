@@ -6,12 +6,15 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
 import com.example.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class DetailsPresenter(private val user: GitHubUser) : MvpPresenter<DetailsView>() {
+class DetailsPresenter (private val user: GitHubUser) : MvpPresenter<DetailsView>() {
 
     @Inject
     lateinit var repository: ReposRepository
@@ -54,3 +57,8 @@ class DetailsPresenter(private val user: GitHubUser) : MvpPresenter<DetailsView>
         router.navigateTo(screens.repoScreen(repo))
     }
 }
+
+//@AssistedFactory
+//interface DetailsPresenterFactory {
+//    fun presenter(user: GitHubUser): DetailsPresenter
+//}

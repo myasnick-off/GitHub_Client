@@ -1,6 +1,5 @@
 package com.example.githubclient.ui.users
 
-import com.example.githubclient.App
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.users.UsersRepository
 import com.example.githubclient.ui.IScreens

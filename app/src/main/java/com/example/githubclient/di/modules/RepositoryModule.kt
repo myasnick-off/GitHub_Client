@@ -1,37 +1,21 @@
 package com.example.githubclient.di.modules
 
-import com.example.githubclient.network.GithubApiService
-import com.example.githubclient.network.NetworkStatus
-import com.example.githubclient.repository.repos.IRoomReposCache
 import com.example.githubclient.repository.repos.ReposRepository
 import com.example.githubclient.repository.repos.ReposRepositoryImpl
-import com.example.githubclient.repository.users.IRoomUsersCache
 import com.example.githubclient.repository.users.UsersRepository
 import com.example.githubclient.repository.users.UsersRepositoryImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+interface RepositoryModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideUsersRepo(
-        apiService: GithubApiService,
-        networkStatus: NetworkStatus,
-        usersCache: IRoomUsersCache
-    ): UsersRepository {
-        return UsersRepositoryImpl(apiService, networkStatus, usersCache)
-    }
+    fun provideUserRepository(impl: UsersRepositoryImpl): UsersRepository
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideReposRepo(
-        apiService: GithubApiService,
-        networkStatus: NetworkStatus,
-        reposCache: IRoomReposCache
-    ): ReposRepository {
-        return ReposRepositoryImpl(apiService, networkStatus, reposCache)
-    }
+    fun provideRepoRepository(impl: ReposRepositoryImpl): ReposRepository
 }

@@ -1,19 +1,16 @@
 package com.example.githubclient.ui.details
 
-import com.example.githubclient.App
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
 import com.example.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
-import dagger.Provides
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
-import javax.inject.Inject
 
 class DetailsPresenter @AssistedInject constructor(
     @Assisted private val user: GitHubUser,
@@ -24,7 +21,6 @@ class DetailsPresenter @AssistedInject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        App.appInstance.appComponent.inject(this)
         viewState.initUserData(user)
         viewState.initRepoList()
         loadData()

@@ -5,8 +5,9 @@ import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.utils.repoEntityToModelConverter
 import com.example.githubclient.utils.repoModelToEntityConverter
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class RoomReposCache(private val repoDao: GitHubRepoDao): IRoomReposCache {
+class RoomReposCache @Inject constructor(private val repoDao: GitHubRepoDao): IRoomReposCache {
 
     override fun saveReposToCache(repoList: List<GitHubRepo>) {
         repoDao.insertAll(repoList.map { repo -> repoModelToEntityConverter(repo) })

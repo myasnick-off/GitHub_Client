@@ -16,7 +16,10 @@ import moxy.ktx.moxyPresenter
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
-    private val presenter by moxyPresenter { App.appInstance.appComponent.provideUsersPresenter() }
+    private val presenter by moxyPresenter {
+        App.appInstance.initUserSubComponent()
+        App.appInstance.userSubComponent?.provideUsersPresenter()!!
+    }
 
     private lateinit var adapter: UsersRecyclerAdapter
     private var _binding: FragmentUsersBinding? = null

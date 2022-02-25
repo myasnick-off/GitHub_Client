@@ -29,7 +29,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideRepoDao(db: GitHubDataBase): GitHubRepoDao {
+    fun  provideRepoDao(db: GitHubDataBase): GitHubRepoDao {
         return db.repoDao
     }
 

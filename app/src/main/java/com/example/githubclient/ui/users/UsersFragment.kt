@@ -1,40 +1,27 @@
 package com.example.githubclient.ui.users
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
+import com.example.githubclient.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
+class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), UsersView, BackButtonListener {
 
-    private val presenter by moxyPresenter { App.appInstance.appComponent.provideUsersPresenter() }
+    private val presenter by moxyPresenter {
+        App.appInstance.initUserSubComponent()
+        App.appInstance.userSubComponent?.provideUsersPresenter()!!
+    }
 
     private lateinit var adapter: UsersRecyclerAdapter
-    private var _binding: FragmentUsersBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentUsersBinding by viewBinding()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUsersBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun init() {
         adapter = UsersRecyclerAdapter(GlideImageLoader()) { user -> presenter.onUserClicked(user) }

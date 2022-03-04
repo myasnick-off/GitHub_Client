@@ -5,8 +5,9 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.utils.userEntityToModelConverter
 import com.example.githubclient.utils.userModelToEntityConverter
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class RoomUsersCache(private val userDao: GitHubUserDao) : IRoomUsersCache {
+class RoomUsersCache @Inject constructor(private val userDao: GitHubUserDao) : IRoomUsersCache {
 
     override fun saveUsersToCache(userList: List<GitHubUser>) {
         userDao.insertAll(userList.map { user -> userModelToEntityConverter(user) })

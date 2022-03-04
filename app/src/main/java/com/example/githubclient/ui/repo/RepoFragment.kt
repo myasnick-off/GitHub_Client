@@ -1,40 +1,29 @@
 package com.example.githubclient.ui.repo
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentRepoBinding
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.ui.BackButtonListener
+import com.example.githubclient.viewBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
+class RepoFragment : MvpAppCompatFragment(R.layout.fragment_repo), RepoView, BackButtonListener {
 
     private val repo by lazy {
         requireArguments().getParcelable<GitHubRepo>(KEY_REPO)!!
     }
 
     private val presenter by moxyPresenter {
-        App.appInstance.appComponent.provideRepoPresenterFactory().presenter(repo)
+        App.appInstance.initRepoSubComponent()
+        App.appInstance.repoSubComponent?.provideRepoPresenterFactory()?.presenter(repo)!!
     }
 
-    private var _binding: FragmentRepoBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentRepoBinding by viewBinding()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRepoBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     @SuppressLint("SetTextI18n")
     override fun init(repo: GitHubRepo) = with(binding) {

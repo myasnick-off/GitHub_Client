@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.users
 
+import com.example.githubclient.App
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.users.UsersRepository
 import com.example.githubclient.ui.IScreens
@@ -20,6 +21,11 @@ class UsersPresenter @Inject constructor(
         super.onFirstViewAttach()
         viewState.init()
         loadData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        App.appInstance.destroyUserScope()
     }
 
     private fun loadData() {

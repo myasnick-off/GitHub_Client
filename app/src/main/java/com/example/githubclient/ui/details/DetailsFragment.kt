@@ -1,9 +1,6 @@
 package com.example.githubclient.ui.details
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.example.githubclient.App
 import com.example.githubclient.R
@@ -12,40 +9,28 @@ import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
+import com.example.githubclient.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class DetailsFragment : MvpAppCompatFragment(), DetailsView, BackButtonListener {
+class DetailsFragment : MvpAppCompatFragment(R.layout.fragment_details), DetailsView, BackButtonListener {
 
     private val user by lazy {
         requireArguments().getParcelable<GitHubUser>(KEY_USER)!!
     }
     private val presenter by moxyPresenter {
-        App.appInstance.appComponent.provideDetailsPresenterFactory().presenter(user)
+        App.appInstance.initRepoSubComponent()
+        App.appInstance.repoSubComponent?.provideDetailsPresenterFactory()?.presenter(user)!!
     }
 
-    private var _binding: FragmentDetailsBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentDetailsBinding by viewBinding()
 
     private val adapter by lazy {
         DetailsRecyclerAdapter() { repo -> presenter.onItemClicked(repo) }
     }
     private val imageLoader by lazy { GlideImageLoader() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun initUserData(user: GitHubUser) {
         binding.userLoginTextView.text = user.login

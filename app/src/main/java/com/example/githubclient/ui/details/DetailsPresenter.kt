@@ -1,5 +1,6 @@
 package com.example.githubclient.ui.details
 
+import com.example.githubclient.App
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
@@ -24,6 +25,11 @@ class DetailsPresenter @AssistedInject constructor(
         viewState.initUserData(user)
         viewState.initRepoList()
         loadData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        App.appInstance.destroyRepoScope()
     }
 
     private fun loadData() {

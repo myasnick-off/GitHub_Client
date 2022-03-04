@@ -5,17 +5,19 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
 import com.example.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
-class DetailsPresenter(
-    private val user: GitHubUser,
+class DetailsPresenter @AssistedInject constructor(
+    @Assisted private val user: GitHubUser,
     private val repository: ReposRepository,
-    val router: Router,
-    val screens: IScreens
-) :
-    MvpPresenter<DetailsView>() {
+    private val router: Router,
+    private val screens: IScreens
+) : MvpPresenter<DetailsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -49,4 +51,9 @@ class DetailsPresenter(
     fun onItemClicked(repo: GitHubRepo) {
         router.navigateTo(screens.repoScreen(repo))
     }
+}
+
+@AssistedFactory
+interface DetailsPresenterFactory {
+    fun presenter(user: GitHubUser): DetailsPresenter
 }

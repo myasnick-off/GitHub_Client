@@ -8,11 +8,6 @@ import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.model.GitHubUser
-import com.example.githubclient.network.ApiHolder
-import com.example.githubclient.network.NetworkStatus
-import com.example.githubclient.repository.users.RoomUsersCache
-import com.example.githubclient.repository.users.UsersRepositoryImpl
-import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
 import com.google.android.material.snackbar.Snackbar
@@ -21,17 +16,8 @@ import moxy.ktx.moxyPresenter
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
-    private val presenter by moxyPresenter {
-        UsersPresenter(
-            UsersRepositoryImpl(
-                ApiHolder.githubApiService,
-                NetworkStatus(requireContext()),
-                RoomUsersCache(App.appInstance.database.userDao,)
-            ),
-            App.appInstance.router,
-            AndroidScreens()
-        )
-    }
+    private val presenter by moxyPresenter { App.appInstance.appComponent.provideUsersPresenter() }
+
     private lateinit var adapter: UsersRecyclerAdapter
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!

@@ -4,33 +4,42 @@ import android.os.Bundle
 import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.ActivityMainBinding
-import com.example.githubclient.ui.AndroidScreens
 import com.example.githubclient.ui.BackButtonListener
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val navigator = AppNavigator(this, R.id.main_container)
-    private val presenter by moxyPresenter { MainPresenter(App.appInstance.router, AndroidScreens()) }
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val navigator = AppNavigator(this, R.id.container)
+    private val presenter by moxyPresenter { App.appInstance.appComponent.provideMainPresenter() }
 
     private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        App.appInstance.appComponent.inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.appInstance.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.appInstance.navigatorHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {

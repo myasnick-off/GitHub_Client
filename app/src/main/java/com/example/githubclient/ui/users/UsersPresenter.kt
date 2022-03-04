@@ -7,13 +7,14 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
-    val usersRepository: UsersRepository,
-    val router: Router,
-    val screens: IScreens
-) :
-    MvpPresenter<UsersView>() {
+class UsersPresenter @Inject constructor(
+    private val usersRepository: UsersRepository,
+    private val router: Router,
+    private val screens: IScreens
+) : MvpPresenter<UsersView>() {
+
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -35,7 +36,7 @@ class UsersPresenter(
                     viewState.hideProgress()
                     viewState.showError(it.message)
                 }
-        )
+            )
     }
 
     fun onUserClicked(user: GitHubUser) {

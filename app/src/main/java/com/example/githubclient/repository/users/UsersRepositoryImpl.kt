@@ -4,8 +4,9 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.network.GithubApiService
 import com.example.githubclient.network.NetworkStatus
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class UsersRepositoryImpl(
+class UsersRepositoryImpl @Inject constructor(
     private val githubApiService: GithubApiService,
     private val networkStatus: NetworkStatus,
     private val roomCache: IRoomUsersCache

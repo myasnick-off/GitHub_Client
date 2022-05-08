@@ -5,14 +5,14 @@ import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentUsersBinding
 import com.example.githubclient.model.GitHubUser
-import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
+import com.example.githubclient.ui.details.DetailsFragment
 import com.example.githubclient.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), UsersView, BackButtonListener {
+class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), UsersView {
 
     private val presenter by moxyPresenter {
         App.appInstance.initUserSubComponent()
@@ -46,7 +46,12 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), UsersView, 
             .show()
     }
 
-    override fun backPressed() = presenter.backPressed()
+    override fun navigateTo(user: GitHubUser) {
+        parentFragmentManager.beginTransaction()
+            .add(R.id.container, DetailsFragment.newInstance(user))
+            .addToBackStack(null)
+            .commit()
+    }
 
     companion object {
         fun newInstance() = UsersFragment()

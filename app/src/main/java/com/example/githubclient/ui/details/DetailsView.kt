@@ -25,4 +25,8 @@ interface DetailsView : MvpView {
 
     @Skip
     fun showError(message: String?)
+
+    @AddToEndSingle
+    fun navigateTo(repo: GitHubRepo)
+
 }

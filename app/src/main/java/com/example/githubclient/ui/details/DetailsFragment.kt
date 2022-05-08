@@ -7,14 +7,14 @@ import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentDetailsBinding
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
-import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.ui.GlideImageLoader
+import com.example.githubclient.ui.repo.RepoFragment
 import com.example.githubclient.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class DetailsFragment : MvpAppCompatFragment(R.layout.fragment_details), DetailsView, BackButtonListener {
+class DetailsFragment : MvpAppCompatFragment(R.layout.fragment_details), DetailsView {
 
     private val user by lazy {
         requireArguments().getParcelable<GitHubUser>(KEY_USER)!!
@@ -59,7 +59,12 @@ class DetailsFragment : MvpAppCompatFragment(R.layout.fragment_details), Details
             .show()
     }
 
-    override fun backPressed() = presenter.backPressed()
+    override fun navigateTo(repo: GitHubRepo) {
+        parentFragmentManager.beginTransaction()
+            .add(R.id.container, RepoFragment.newInstance(repo))
+            .addToBackStack(null)
+            .commit()
+    }
 
     companion object {
         const val KEY_USER = "key_user"

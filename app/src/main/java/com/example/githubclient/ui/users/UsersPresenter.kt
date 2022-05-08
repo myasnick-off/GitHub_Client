@@ -3,8 +3,6 @@ package com.example.githubclient.ui.users
 import com.example.githubclient.App
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.users.UsersRepository
-import com.example.githubclient.ui.IScreens
-import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
@@ -12,8 +10,6 @@ import javax.inject.Inject
 
 class UsersPresenter @Inject constructor(
     private val usersRepository: UsersRepository,
-    private val router: Router,
-    private val screens: IScreens
 ) : MvpPresenter<UsersView>() {
 
 
@@ -46,11 +42,6 @@ class UsersPresenter @Inject constructor(
     }
 
     fun onUserClicked(user: GitHubUser) {
-        router.navigateTo(screens.detailsScreen(user))
-    }
-
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
+       viewState.navigateTo(user)
     }
 }

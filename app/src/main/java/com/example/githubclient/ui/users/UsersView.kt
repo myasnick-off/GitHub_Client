@@ -21,4 +21,7 @@ interface UsersView : MvpView {
 
     @Skip
     fun showError(message: String?)
+
+    @AddToEndSingle
+    fun navigateTo(user: GitHubUser)
 }

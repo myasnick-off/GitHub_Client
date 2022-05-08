@@ -6,12 +6,11 @@ import com.example.githubclient.App
 import com.example.githubclient.R
 import com.example.githubclient.databinding.FragmentRepoBinding
 import com.example.githubclient.model.GitHubRepo
-import com.example.githubclient.ui.BackButtonListener
 import com.example.githubclient.viewBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class RepoFragment : MvpAppCompatFragment(R.layout.fragment_repo), RepoView, BackButtonListener {
+class RepoFragment : MvpAppCompatFragment(R.layout.fragment_repo), RepoView {
 
     private val repo by lazy {
         requireArguments().getParcelable<GitHubRepo>(KEY_REPO)!!
@@ -35,8 +34,6 @@ class RepoFragment : MvpAppCompatFragment(R.layout.fragment_repo), RepoView, Bac
         forkTextView.text = "${repo.forksCount} ${getString(R.string.forks)}"
         aboutTextView.text = repo.description.orEmpty()
     }
-
-    override fun backPressed() = presenter.backPressed()
 
     companion object {
         const val KEY_REPO = "key_repo"

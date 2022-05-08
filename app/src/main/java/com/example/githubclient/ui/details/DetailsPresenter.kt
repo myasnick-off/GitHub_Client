@@ -4,8 +4,6 @@ import com.example.githubclient.App
 import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.repos.ReposRepository
-import com.example.githubclient.ui.IScreens
-import com.github.terrakok.cicerone.Router
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -16,8 +14,6 @@ import moxy.MvpPresenter
 class DetailsPresenter @AssistedInject constructor(
     @Assisted private val user: GitHubUser,
     private val repository: ReposRepository,
-    private val router: Router,
-    private val screens: IScreens
 ) : MvpPresenter<DetailsView>() {
 
     override fun onFirstViewAttach() {
@@ -49,13 +45,8 @@ class DetailsPresenter @AssistedInject constructor(
             )
     }
 
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
-    }
-
     fun onItemClicked(repo: GitHubRepo) {
-        router.navigateTo(screens.repoScreen(repo))
+       viewState.navigateTo(repo)
     }
 }
 

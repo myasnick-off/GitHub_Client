@@ -16,7 +16,7 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), UsersView {
 
     private val presenter by moxyPresenter {
         App.appInstance.initUserSubComponent()
-        App.appInstance.userSubComponent?.provideUsersPresenter()!!
+        App.appInstance.userSubComponent?.provideUsersPresenterFactory()?.presenter(this)!!
     }
 
     private lateinit var adapter: UsersRecyclerAdapter

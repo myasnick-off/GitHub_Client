@@ -4,10 +4,7 @@ import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.users.UsersRepository
 import com.example.githubclient.ui.users.UsersPresenter
 import com.example.githubclient.ui.users.UsersView
-import com.nhaarman.mockito_kotlin.atLeast
-import com.nhaarman.mockito_kotlin.atMost
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -17,7 +14,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import java.lang.RuntimeException
 
 class UsersPresenterTest {
 
@@ -62,17 +58,12 @@ class UsersPresenterTest {
     }
 
     @Test
-    fun usersPresenterTest_View_ShowProgress_Method_Verifying() {
+    fun usersPresenterTest_Progress_Methods_Order_Verifying() {
         Mockito.`when`(repository.getUsers()).thenReturn(Single.just(emptyList()))
+        val inOrder = inOrder(view)
         presenter.loadData()
-        verify(view, times(1)).showProgress()
-    }
-
-    @Test
-    fun usersPresenterTest_View_HideProgress_Method_Verifying() {
-        Mockito.`when`(repository.getUsers()).thenReturn(Single.just(emptyList()))
-        presenter.loadData()
-        verify(view, times(1)).hideProgress()
+        inOrder.verify(view).showProgress()
+        inOrder.verify(view).hideProgress()
     }
 
     @Test

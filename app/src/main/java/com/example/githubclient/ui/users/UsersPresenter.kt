@@ -1,21 +1,27 @@
 package com.example.githubclient.ui.users
 
 import com.example.githubclient.App
+import com.example.githubclient.model.GitHubRepo
 import com.example.githubclient.model.GitHubUser
 import com.example.githubclient.repository.users.UsersRepository
+import com.example.githubclient.ui.repo.RepoPresenter
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class UsersPresenter @Inject constructor(
+class UsersPresenter @AssistedInject constructor(
     private val usersRepository: UsersRepository,
+    @Assisted private val view: UsersView
 ) : MvpPresenter<UsersView>() {
 
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.init()
+        view.init()
         loadData()
     }
 
@@ -24,24 +30,29 @@ class UsersPresenter @Inject constructor(
         App.appInstance.destroyUserScope()
     }
 
-    private fun loadData() {
-        viewState.showProgress()
+    fun loadData() {
+        view.showProgress()
         usersRepository.getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    viewState.hideProgress()
-                    viewState.updateList(it)
+                    view.hideProgress()
+                    view.updateList(it)
                 },
                 {
-                    viewState.hideProgress()
-                    viewState.showError(it.message)
+                    view.hideProgress()
+                    view.showError(it.message)
                 }
             )
     }
 
     fun onUserClicked(user: GitHubUser) {
-       viewState.navigateTo(user)
+       view.navigateTo(user)
     }
+}
+
+@AssistedFactory
+interface UsersPresenterFactory {
+    fun presenter(view: UsersView): UsersPresenter
 }
